@@ -1,9 +1,67 @@
-<h1>Eventos componente!</h1>
-
-<div *ngFor="let evento of eventos">
-  <div>
-    <p>{{evento.tema}}</p>
-    <p>{{evento.local}}</p>
-  </div>
+<div class="container-fluid">
+  <h2>Eventos</h2>
   <hr />
+  <div class="">
+    <div class="form-group mb-2 d-flex">
+      <label class="m-auto">Filtro: </label>
+      <input
+        type="text"
+        class="form-control mr-2"
+        placeholder="buscar"
+        [(ngModel)]="filtroLista"
+      />
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>
+          <button
+            id="imagem"
+            class="btn border-0 btn-sm"
+            (click)="exibirImagem = !exibirImagem"
+          >
+            {{ exibirImagem ? "Exibir" : "Ocultar" }}
+          </button>
+        </th>
+        <th>#</th>
+        <th>Tema</th>
+        <th>Local</th>
+        <th>Data</th>
+        <th>Qtd Pessoas</th>
+        <th>Lote</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="eventos && eventos.length">
+      <tr *ngFor="let evento of eventosFiltrados">
+        <td>
+          <img
+            #collapse="bs-collapse"
+            [collapse]="exibirImagem"
+            [isAnimated]="true"
+            src="/assets/{{ evento.imageURL }}"
+            alt="Imagem-evento"
+            [style.width.px]="100"
+            [style.margin.px]="2"
+          />
+        </td>
+        <td>{{ evento.eventId }}</td>
+        <td>{{ evento.tema }}</td>
+        <td>{{ evento.local }}</td>
+        <td>{{ evento.dataEvento }}</td>
+        <td>{{ evento.quantidadePessoas }}</td>
+        <td>{{ evento.lote }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm">Editar</button>
+          <button class="btn btn-danger m-2 btn-sm">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="eventos && !eventos.length">
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado.</h4>
+      </td>
+    </tfoot>
+  </table>
 </div>
