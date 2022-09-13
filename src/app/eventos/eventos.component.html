@@ -1,8 +1,6 @@
-<div class="container-fluid">
   <h2>Eventos</h2>
   <hr />
-  <div class="">
-    <div class="form-group mb-2 d-flex">
+    <div class="form-group mr-2 d-flex">
       <label class="m-auto">Filtro: </label>
       <input
         type="text"
@@ -11,16 +9,18 @@
         [(ngModel)]="filtroLista"
       />
     </div>
-  </div>
   <table class="table table-striped">
-    <thead class="thead-dark">
+    <thead>
       <tr>
         <th>
           <button
             id="imagem"
             class="btn border-0 btn-sm"
-            (click)="exibirImagem = !exibirImagem"
+            (click)="alterarImagem()"
           >
+            <i
+              class="{{ !exibirImagem ? 'fa fa-eye-slash' : 'fa fa-eye' }}"
+            ></i>
             {{ exibirImagem ? "Exibir" : "Ocultar" }}
           </button>
         </th>
@@ -46,15 +46,28 @@
             [style.margin.px]="2"
           />
         </td>
-        <td>{{ evento.eventId }}</td>
+        <td>{{ evento.id }}</td>
         <td>{{ evento.tema }}</td>
         <td>{{ evento.local }}</td>
-        <td>{{ evento.dataEvento }}</td>
+        <td>{{ evento.dataEvento | dateTimeFormatPipe }}</td>
         <td>{{ evento.quantidadePessoas }}</td>
-        <td>{{ evento.lote }}</td>
+        <td>{{ evento.lotes }}</td>
         <td>
-          <button class="btn btn-primary btn-sm">Editar</button>
-          <button class="btn btn-danger m-2 btn-sm">Excluir</button>
+            <button
+              type="button"
+              tooltip="Editar"
+              class="btn btn-primary btn-sm mr2"
+            >
+              <i class="fa fa-edit"></i>
+            </button>
+            <button
+              type="button"
+              tooltip="Excluir"
+              class="btn btn-danger m-2 btn-sm"
+              (click)="openModal(template)"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
         </td>
       </tr>
     </tbody>
@@ -64,4 +77,11 @@
       </td>
     </tfoot>
   </table>
-</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Realmente deseja excluir esse item?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>
