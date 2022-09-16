@@ -1,3 +1,5 @@
+import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
+import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -8,7 +10,14 @@ import { PalestrantesComponent } from './components/palestrantes/palestrantes.co
 import { PerfilComponent } from './components/perfil/perfil.component';
 
 const routes: Routes = [
-  { path: 'eventos', component: EventosComponent },
+  {
+     path: 'eventos', component: EventosComponent,
+     children: [
+     { path: 'detalhe/:id', component: EventoDetalheComponent },
+     { path: 'detalhe', component: EventoDetalheComponent },
+     { path: 'lista', component: EventoListaComponent },
+    ]
+  },
   { path: 'contatos', component: ContatosComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'palestrantes', component: PalestrantesComponent },
