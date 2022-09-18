@@ -1,4 +1,4 @@
-<div class="card rounded shadow-sm p-3">
+<div class="card rounded shadow-sm">
 
   <div class="d-flex">
     <div class="flex-fill pe-3">
@@ -21,7 +21,7 @@
       </a>
     </div>
   </div>
-  <table class="table table-striped text-white">
+  <table class="table table-striped text-white table-hover">
     <thead class="bg-secondary">
       <tr>
         <th class="d-none d-md-table-cell">
@@ -46,7 +46,7 @@
       </tr>
     </thead>
     <tbody *ngIf="eventos && eventos.length">
-      <tr *ngFor="let evento of eventosFiltrados">
+      <tr *ngFor="let evento of eventosFiltrados" (click)="detalheEvento(evento.id)">
         <td class="d-none d-md-table-cell">
           <img
             #collapse="bs-collapse"
